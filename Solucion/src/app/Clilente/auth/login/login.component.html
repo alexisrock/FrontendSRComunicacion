@@ -1,0 +1,18 @@
+<p-card>
+
+  <form [formGroup]="myform">
+
+    <div *ngIf="mensajeError.trim()!==''" class="label alert">
+      {{mensajeError}}
+    </div>
+    <br />
+    <input placeholder="Usuario" type="text" formControlName="idusuario" />
+    <input placeholder="Contraseña" type="text" formControlName="password" />
+    <button type="button" class="button" (click)="login()">Ingresar</button>
+
+
+
+  </form>
+
+
+</p-card>
