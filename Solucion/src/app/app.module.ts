@@ -1,38 +1,25 @@
 import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CardModule } from 'primeng/card';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
-import { LoginService } from './Clilente/Services/login.service';
+import { LogueoModule } from './Cliente/logueo/logueo.module';
 
 
 
-
-export interface AppConfig{
-  apiEndpoint: string;
-};
-
-const APP_CONFIG_VALUE: AppConfig = {
-apiEndpoint: "https://localhost:44379/api/"
-};
-
-export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 @NgModule({
   declarations: [
     AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
+  ],exports:[
 
   ],
+  imports: [
+    BrowserModule ,
+    AppRoutingModule,
+    LogueoModule,
+    HttpClientModule,
+  ],
   providers: [
-    LoginService,
-    {provide: APP_CONFIG, useValue: APP_CONFIG_VALUE},
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,24 @@
+<p-card>
+
+
+  <form [formGroup]="myform" class="p-d-flex">
+
+    <div class="p-mb-2 p-mr-2"></div>
+
+    <div *ngIf="mensajeError!==''" class="colorletra">
+      {{mensajeError}}
+    </div>
+    <br />
+    <div class="p-mb-2 p-mr-2">
+      <input placeholder="Usuario" pInputText type="text" formControlName="idusuario" /><br>
+
+      <input placeholder="Contraseña" pInputText type="text" formControlName="password" />
+      <br>
+      <p-button type="button" class="button" (click)="login()">Ingresar</p-button>
+    </div>
+
+
+  </form>
+
+
+</p-card>
