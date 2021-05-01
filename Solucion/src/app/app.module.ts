@@ -4,12 +4,16 @@ import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest} from '@angular/
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LogueoModule } from './Cliente/logueo/logueo.module';
+import { MessageService } from 'primeng/api';
+
+import { PanelModule } from 'primeng/panel';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],exports:[
 
   ],
@@ -18,8 +22,10 @@ import { LogueoModule } from './Cliente/logueo/logueo.module';
     AppRoutingModule,
     LogueoModule,
     HttpClientModule,
+    PanelModule
+
   ],
-  providers: [
+  providers: [MessageService,
   ],
   bootstrap: [AppComponent]
 })

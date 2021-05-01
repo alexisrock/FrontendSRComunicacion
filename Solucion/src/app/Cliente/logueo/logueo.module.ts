@@ -5,11 +5,25 @@ import {CardModule} from 'primeng/card';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
 import { PrincipalComponent } from './principal/principal.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DropdownModule} from 'primeng/dropdown';
+import {PanelModule} from 'primeng/panel';
+import { HeaderMenuComponent } from './header-menu/header-menu.component';
+import { ListarUsuarioComponent } from './Usuarios/listar-usuario/listar-usuario.component';
+import { CrearUsuarioComponent } from './Usuarios/crear-usuario/crear-usuario.component';
+import {TableModule} from 'primeng/table';
+
+
 @NgModule({
   declarations: [
     LoginComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    HeaderMenuComponent,
+    ListarUsuarioComponent,
+    CrearUsuarioComponent,
+
   ],
   imports: [
     CommonModule,
@@ -17,8 +31,13 @@ import { PrincipalComponent } from './principal/principal.component';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    ToastModule,
+    BrowserAnimationsModule,
+    PanelModule,
+    TableModule,
+    DropdownModule
 
-  ]
+     ]
 })
 export class LogueoModule { }

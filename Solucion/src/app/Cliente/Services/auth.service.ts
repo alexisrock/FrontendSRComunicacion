@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   getIdRol(){
-    this.cookies.get('idrol');
+    return this.cookies.get('idrol');
   }
 
   setName(name){
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   getName(){
-    this.cookies.get('username');
+    return this.cookies.get('username');
   }
 
   setCedula(documento){
@@ -29,7 +29,15 @@ export class AuthService {
   }
 
   getCedula(){
-    this.cookies.get('documento');
+    return  this.cookies.get('documento');
+  }
+
+
+
+  logout(): any {
+    this.cookies.delete('username');
+    this.cookies.delete('documento');
+    this.cookies.delete('idrol');
   }
 
 

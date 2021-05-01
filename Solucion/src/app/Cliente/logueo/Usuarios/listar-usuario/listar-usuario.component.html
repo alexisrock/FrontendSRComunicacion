@@ -1,0 +1,33 @@
+<app-header-menu></app-header-menu>
+
+<p-panel >
+  <button pButton pRipple type="button" label="Nuevo" (click)="Nuevo()" icon="pi pi-user" class="p-button-outlined "></button>
+<br>
+  <p-table [value]="listUsuarios" [rows]="10"  [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Documento</th>
+            <th>Nombre</th>
+            <th>Rol</th>
+            <th>Accion</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr>
+            <td>{{user.documento}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.nombrerol}}</td>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-pencil" (click)="Edit(user.idUser)" class="p-button-rounded p-button-outlined"></button> &nbsp;
+              <button pButton pRipple type="button" icon="pi pi-trash" (click)="Delete(user.idUser)" class="p-button-rounded p-button-outlined  p-button-danger"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+
+
+
+</p-panel>

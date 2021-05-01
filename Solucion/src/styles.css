@@ -2,3 +2,53 @@ body {
   background-color: #e6e6e6;
 
 }
+
+
+.flex-comnpartir {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  margin-left: 1rem;
+}
+
+@media (max-width: 600px) {
+  .flex-comnpartir {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}
+
+
+.flex-header {
+  display: grid;
+  grid-template-columns: 90% 10% ;
+  margin-left: 1rem;
+}
+
+@media (max-width: 600px) {
+  .flex-header {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}
+
+
+.validation-errors{
+  color: #E0161b;
+  font-size: smaller;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.flex-form {
+  display: grid;
+  grid-template-columns: 20% 20% ;
+  margin-left: 8rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 600px) {
+  .flex-header {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}
+

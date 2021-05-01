@@ -1,24 +1,26 @@
-<p-card>
 
 
   <form [formGroup]="myform" class="p-d-flex">
 
-    <div class="p-mb-2 p-mr-2"></div>
+    <div class=" p-grid   p-flex-column p-flex-md-row" style="padding: 5% 5%;">&nbsp;</div>
+    <p-toast class="Top Center"></p-toast>
 
-    <div *ngIf="mensajeError!==''" class="colorletra">
-      {{mensajeError}}
-    </div>
     <br />
-    <div class="p-mb-2 p-mr-2">
-      <input placeholder="Usuario" pInputText type="text" formControlName="idusuario" /><br>
+    <p-card class="p-flex-column p-grid ">
 
-      <input placeholder="Contraseña" pInputText type="text" formControlName="password" />
-      <br>
-      <p-button type="button" class="button" (click)="login()">Ingresar</p-button>
+    <div class="p-fluid ">
+      <div >
+        <input placeholder="Usuario" pInputText type="text" formControlName="idusuario" />
+        <br><br>
+        <input placeholder="Contraseña" pInputText type="text" formControlName="password" />
+        <br><br>
+        <p-button type="button" class="button" (click)="login()">Ingresar</p-button>
+      </div>
     </div>
+
+  </p-card>
+
 
 
   </form>
 
-
-</p-card>

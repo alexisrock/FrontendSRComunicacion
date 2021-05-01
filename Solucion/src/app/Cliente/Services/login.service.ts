@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
 
-  constructor(private http: HttpClient,private cookies: CookieService) { }
+  constructor(private http: HttpClient) { }
 
 
   login(user: string, password: string) {
