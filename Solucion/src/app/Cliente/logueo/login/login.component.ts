@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
           this.authservices.setIdRol(data['idrol']);
           this.authservices.setCedula(data['documento']);
           this.authservices.setName(data['username']);
+          this.authservices.setIduser(data['idUser']);
+
           this.router.navigateByUrl('principal');
         }else{
           this.addSingle('Usuario / contraseña  incorrecto');

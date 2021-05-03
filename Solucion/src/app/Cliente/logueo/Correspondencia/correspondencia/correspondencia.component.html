@@ -1,0 +1,104 @@
+<app-header-menu [hidden]="verEditar"></app-header-menu>
+<p-panel>
+  <ng-template pTemplate="header">
+    <h1>{{titulo}}</h1>
+  </ng-template>
+  <button pButton pRipple type="button" (click)="atras()" *ngIf="this.displaybotton" label="atras"
+    class="p-button-outlined p-button-secondary"></button>
+  <form [formGroup]="myform">
+    <p-toast class="Top Center"></p-toast>
+    <div class="flex-form">
+      <div class="linea">
+        <label for="idRemitente">Remitente</label>&nbsp;
+        <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="listaremi" (completeMethod)="filterRem($event)" field="nombres" formControlName="idRemitente" [dropdown]="true">
+          <ng-template let-rem pTemplate="item">
+              <div class="country-item">
+                 <div>{{rem.nombres}}   {{rem.apellidos}}</div>
+              </div>
+          </ng-template>
+      </p-autoComplete>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validador of validation.idRemitente">
+            <div
+              *ngIf="myform.get('idRemitente').hasError(validador.type) && (myform.get('idRemitente').dirty || myform.get('idRemitente').touch) ">
+              {{validador.message}}
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+      <div class="linea">
+        <label for="nombre">Destinatario</label>&nbsp;
+        <p-autoComplete [suggestions]="listadest" (completeMethod)="filterdesm($event)" field="nombres"    formControlName="idDestinatario" [dropdown]="true">
+          <ng-template let-des pTemplate="item">
+              <div class="country-item">
+                 <div>{{des.nombres}}   {{des.apellidos}}</div>
+              </div>
+          </ng-template>
+      </p-autoComplete>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validador of validation.idDestinatario">
+            <div
+              *ngIf="myform.get('idDestinatario').hasError(validador.type) && (myform.get('idDestinatario').dirty || myform.get('idDestinatario').touch) ">
+              {{validador.message}}
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="flex-form">
+      <div class="linea">
+        <label for="rutaArchivo">Archivo</label>&nbsp;
+        <input id="rutaArchivo" type="file"  (onchange)="uploadFile()"  pInputText formControlName="rutaArchivo">
+        <div class="validation-errors">
+
+        </div>
+      </div>
+      <div class="linea">
+        <label for="observacion">Observacion</label>&nbsp;<br>
+
+        <textarea id="observacion" cols="40" pInputText formControlName="observacion">
+          </textarea>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validador of validation.observacion">
+              <div
+                *ngIf="myform.get('observacion').hasError(validador.type) && (myform.get('observacion').dirty || myform.get('observacion').touch) ">
+                {{validador.message}}
+              </div>
+
+            </ng-container>
+          </div>
+      </div>
+
+
+
+    </div>
+
+
+    <div class="flex-form">
+
+      <div class="linea">
+        <label for="idTipoRemDes">Tipo Rem / Des</label>&nbsp;
+        <p-dropdown [options]="listtipocorr" formControlName="tipoCorrespondencia" optionLabel="name"
+          optionValue="code"></p-dropdown>
+      </div>
+    </div>
+    <div class="flex-form">
+      <div class="linea">
+        <button pButton pRipple type="button" (click)="Save()" label="Guardar" class="p-button-outlined"></button>
+      </div>
+    </div>
+
+
+
+
+
+  </form>
+
+
+</p-panel>
+

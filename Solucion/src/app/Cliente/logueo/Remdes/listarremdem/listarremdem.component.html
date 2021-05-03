@@ -1,0 +1,44 @@
+<app-header-menu></app-header-menu>
+<p-panel >
+  <button pButton pRipple type="button" label="Nuevo" (click)="Nuevo()" icon="pi pi-users" class="p-button-outlined p-button-success"></button> &nbsp;
+  <button pButton pRipple type="button" (click)="atras()"     label="atras"  class="p-button-outlined p-button-secondary"></button>
+<br>
+
+<p-dialog header="" *ngIf="display"  [(visible)]="display" >
+  <app-remdes (displaychange)="closedModal()" [remdesditar]="remEdit" ></app-remdes>
+</p-dialog>
+
+  <p-table [value]="ListaRemdem" [rows]="10"  [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Documento</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Tipo</th>
+            <th>Accion</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-remdem>
+        <tr>
+            <td>{{remdem.documento}}</td>
+            <td>{{remdem.nombres}}</td>
+            <td>{{remdem.apellidos}}</td>
+            <td>{{remdem.direccion}}</td>
+            <td>{{remdem.telefono}}</td>
+            <td>{{remdem.descripcionTiporemdem}}</td>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-pencil" (click)="Edit(remdem)" class="p-button-rounded p-button-outlined"></button> &nbsp;
+              <button pButton pRipple type="button" icon="pi pi-trash" (click)="Delete(remdem.idremitente)" class="p-button-rounded p-button-outlined  p-button-danger"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+
+
+
+</p-panel>

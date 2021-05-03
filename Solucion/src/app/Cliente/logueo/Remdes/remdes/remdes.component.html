@@ -1,0 +1,107 @@
+<app-header-menu [hidden]="verEditar"></app-header-menu>
+<p-panel>
+  <ng-template pTemplate="header">
+    <h1>{{titulo}}</h1>
+  </ng-template>
+  <button pButton pRipple type="button" (click)="atras()" *ngIf="this.displaybotton" label="atras"
+    class="p-button-outlined p-button-secondary"></button>
+  <form [formGroup]="myform">
+    <p-toast class="Top Center"></p-toast>
+    <div class="flex-form">
+      <div class="linea">
+        <label for="documento">Documento</label>&nbsp;
+        <input id="documento" type="text" pInputText formControlName="documento">
+        <div class="validation-errors">
+          <ng-container *ngFor="let validador of validation.documento">
+            <div
+              *ngIf="myform.get('documento').hasError(validador.type) && (myform.get('documento').dirty || myform.get('documento').touch) ">
+              {{validador.message}}
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+      <div class="linea">
+        <label for="nombre">Nombre</label>&nbsp;
+        <input id="nombre" type="text" pInputText formControlName="nombre">&nbsp;
+        <div class="validation-errors">
+          <ng-container *ngFor="let validador of validation.nombre">
+            <div
+              *ngIf="myform.get('nombre').hasError(validador.type) && (myform.get('nombre').dirty || myform.get('nombre').touch) ">
+              {{validador.message}}
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="flex-form">
+      <div class="linea">
+        <label for="apellidos">Apellidos</label>&nbsp;
+        <input id="apellidos" type="text" pInputText formControlName="apellidos">
+        <div class="validation-errors">
+          <ng-container *ngFor="let validador of validation.apellidos">
+            <div
+              *ngIf="myform.get('apellidos').hasError(validador.type) && (myform.get('apellidos').dirty || myform.get('apellidos').touch) ">
+              {{validador.message}}
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+      <div class="linea">
+        <label for="direccion">Direccion</label>&nbsp;
+        <input id="direccion" type="text" pInputText formControlName="direccion">
+        <div class="validation-errors">
+          <ng-container *ngFor="let validador of validation.direccion">
+            <div
+              *ngIf="myform.get('direccion').hasError(validador.type) && (myform.get('direccion').dirty || myform.get('direccion').touch) ">
+              {{validador.message}}
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+    <div class="flex-form">
+      <div class="linea">
+        <label for="telefono">Telefono</label>&nbsp;
+        <input id="telefono" type="text" pInputText formControlName="telefono">
+        <div class="validation-errors">
+          <ng-container *ngFor="let validador of validation.telefono">
+            <div
+              *ngIf="myform.get('telefono').hasError(validador.type) && (myform.get('telefono').dirty || myform.get('telefono').touch) ">
+              {{validador.message}}
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+      <div class="linea">
+        <label for="idTipoRemDes">Tipo Rem / Des</label>&nbsp;
+        <p-dropdown [options]="listTiposRedDes" formControlName="idTipoRemDes" optionLabel="descripcion"
+          optionValue="idTipoRemDes"></p-dropdown>
+      </div>
+    </div>
+    <div class="flex-form">
+      <div class="linea">
+        <button pButton pRipple type="button" (click)="Save()" label="Guardar" class="p-button-outlined"></button>
+      </div>
+    </div>
+
+
+
+
+
+  </form>
+
+
+</p-panel>

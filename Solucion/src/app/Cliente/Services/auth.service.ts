@@ -8,6 +8,14 @@ export class AuthService {
   constructor(private cookies: CookieService) { }
 
 
+  setIduser(iduser){
+    this.cookies.set('idUser', iduser);
+  }
+
+  getIduser(){
+    return this.cookies.get('idUser');
+  }
+
   setIdRol(idrol){
     this.cookies.set('idrol', idrol);
   }
@@ -38,6 +46,9 @@ export class AuthService {
     this.cookies.delete('username');
     this.cookies.delete('documento');
     this.cookies.delete('idrol');
+    this.cookies.delete('idUser');
+
+
   }
 
 

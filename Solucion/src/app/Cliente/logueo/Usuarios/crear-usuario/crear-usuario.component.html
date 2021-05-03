@@ -1,4 +1,4 @@
-<app-header-menu></app-header-menu>
+<app-header-menu  [hidden]="verEditar"></app-header-menu>
 <p-panel>
   <ng-template pTemplate="header">
     <h1>{{titulo}}</h1>
@@ -12,7 +12,7 @@
         <input id="documento" type="text" pInputText formControlName="documento">
         <div class="validation-errors">
           <ng-container *ngFor="let validador of validation.documento">
-            <div *ngIf="myform.get('documento').hasError(validador.type) && (myform.get('documento').dirty || myform.get('documento').touch) "> 
+            <div *ngIf="myform.get('documento').hasError(validador.type) && (myform.get('documento').dirty || myform.get('documento').touch) ">
               {{validador.message}}
             </div>
 

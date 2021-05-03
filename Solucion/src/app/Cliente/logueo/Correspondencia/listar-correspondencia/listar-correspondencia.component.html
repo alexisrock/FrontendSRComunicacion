@@ -1,0 +1,44 @@
+<app-header-menu></app-header-menu>
+<p-panel >
+  <button pButton pRipple type="button" label="Nuevo" (click)="Nuevo()"  *ngIf="this.displaybotton" icon="pi pi-envelope" class="p-button-outlined p-button-help"></button> &nbsp;
+  <button pButton pRipple type="button" (click)="atras()"     label="atras"  class="p-button-outlined p-button-secondary"></button>
+<br>
+
+<p-dialog header="" *ngIf="display"  [(visible)]="display" >
+  <app-correspondencia (displaychange)="closedModal()" [corresditar]="corresEdit" ></app-correspondencia>
+</p-dialog>
+
+  <p-table [value]="Lista" [rows]="10"  [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Id</th>
+            <th>Remitente</th>
+            <th>Destinatio</th>
+            <th>Fecha ingreso</th>
+            <th>Observacion</th>
+            <th>Accion</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-Corres>
+        <tr>
+            <td>{{Corres.idCorrespondencia}}</td>
+            <td>{{Corres.remitente}}</td>
+            <td>{{Corres.destinatario}}</td>
+            <td>{{Corres.fechaCreacion | date: 'short'}}</td>
+            <td>{{Corres.observacion}}</td>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-eye" *ngIf="Corres.rutaArchivo!=''"(click)="mostrar(Corres.rutaArchivo)" class="p-button-rounded p-button-outlined  p-button-secondary"></button>&nbsp;
+              <button pButton pRipple type="button" icon="pi pi-pencil" (click)="Edit(Corres)" class="p-button-rounded p-button-outlined"></button> &nbsp;
+              <button pButton pRipple type="button" icon="pi pi-trash" (click)="Delete(Corres.idCorrespondencia)" class="p-button-rounded p-button-outlined  p-button-danger"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+
+
+
+</p-panel>
+

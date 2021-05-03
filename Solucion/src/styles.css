@@ -30,7 +30,10 @@ body {
     grid-template-columns: 100%;
   }
 }
-
+iframe {
+  max-width: 100%;
+  height: auto;
+}
 
 .validation-errors{
   color: #E0161b;
@@ -40,15 +43,29 @@ body {
 
 .flex-form {
   display: grid;
-  grid-template-columns: 20% 20% ;
-  margin-left: 8rem;
+  grid-template-columns: 30% 30% ;
+  grid-column-gap: 3rem;
   margin-top: 3rem;
 }
-
+.linea{
+  margin-left: 4rem;
+  margin-right: 4rem;
+  grid-column-gap: 3rem;
+}
 @media (max-width: 600px) {
   .flex-header {
     display: grid;
     grid-template-columns: 100%;
   }
+
+  .linea{
+    margin-left: 3rem;
+    grid-column-gap: 3rem;
+    }
 }
+
+
+
+
+
 

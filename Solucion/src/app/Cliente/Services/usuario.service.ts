@@ -16,6 +16,7 @@ export class UsuarioService {
 
 
 public Usuario: Usuario={
+  
 documento: "",
 username: "",
 contrasena: "",
@@ -41,19 +42,10 @@ idrol: 1
       return this.http.delete<Response>(environment.url+'Usuarios/Delete/'+id, {headers: this.headers} );
     }
 
+    update(){
+      return this.http.put<Response>(environment.url+'Usuarios/Update/'+this.Usuario.idUser, this.Usuario,{headers: this.headers} );
 
-    GetId(id){
-      return this.http.get<Usuario>(environment.url+'Usuarios/GetId/'+id, {headers: this.headers} ).subscribe(
-        data=>{
-          console.log(data)
-          this.Usuario.idUser=data['idUser'];
-          this.Usuario.documento=data['documento'];
-          this.Usuario.username=data['username'];
-          this.Usuario.contrasena=data['contrasena'];
-          this.Usuario.idrol=data['idrol'];
-        
-        }
-      );
     }
+
 
 }

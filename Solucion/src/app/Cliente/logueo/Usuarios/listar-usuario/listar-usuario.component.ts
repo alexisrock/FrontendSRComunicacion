@@ -12,7 +12,8 @@ export class ListarUsuarioComponent implements OnInit {
 public listUsuarios: Usuario[] = [];
 first = 0;
 rows = 10;
-
+public display: boolean = false;
+public userEdit: Usuario;
   constructor(private Usuaruiservices: UsuarioService, private router: Router) {
     this.GetUsuarios();
    }
@@ -42,10 +43,19 @@ rows = 10;
       });
   }
 
-  Edit(Usuarioid){
-    this.router.navigate(['UsuarioEdit', Usuarioid]);
+  Edit(Usuario){
+  this.userEdit = Usuario;
+  this.display = true;
   }
 
+  closedModal(){
+    this.display = false;
+    this.GetUsuarios();
+  }
+
+  atras(){
+    this.router.navigateByUrl('principal');
+  }
 
 
   next() {

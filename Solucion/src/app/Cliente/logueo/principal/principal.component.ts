@@ -32,9 +32,14 @@ public displaycorrespondencia: boolean= false;
   ingresar(numero){
 
     if (numero===1) {
-
       this.router.navigateByUrl('ListarUsuario');
     }
+    else if(numero===2){
+      this.router.navigateByUrl('ListarRemdem');
+    }else{
+      this.router.navigateByUrl('ListarCorrespondencia');
+    }
+
 
   }
 }
