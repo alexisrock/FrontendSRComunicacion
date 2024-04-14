@@ -1,4 +1,4 @@
-<h1 align="center"> App de Ingresos </h1>
+<h1 align="center"> Frontend SR Comunicacion</h1>
 
 <h2 align="left"> Descripcion</h2>
 <p>
