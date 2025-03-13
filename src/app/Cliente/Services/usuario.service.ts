@@ -9,14 +9,14 @@ import { Usuario } from '../logueo/Interfaces/usuario';
 })
 export class UsuarioService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
 
   public headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
 
 public Usuario: Usuario={
-  
+
 documento: "",
 username: "",
 contrasena: "",

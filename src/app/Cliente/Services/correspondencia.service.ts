@@ -9,7 +9,7 @@ import { Correspondenica, VwCorrespondenica } from '../logueo/Interfaces/corresp
 export class CorrespondenciaService {
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   public headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 

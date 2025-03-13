@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/Cliente/Services/usuario.service';
 import { Usuario } from '../../Interfaces/usuario';
@@ -8,18 +8,16 @@ import { Usuario } from '../../Interfaces/usuario';
   templateUrl: './listar-usuario.component.html',
   styleUrls: ['./listar-usuario.component.css']
 })
-export class ListarUsuarioComponent implements OnInit {
+export class ListarUsuarioComponent  {
 public listUsuarios: Usuario[] = [];
 first = 0;
 rows = 10;
 public display: boolean = false;
 public userEdit: Usuario;
-  constructor(private Usuaruiservices: UsuarioService, private router: Router) {
+  constructor(private readonly Usuaruiservices: UsuarioService, private readonly router: Router) {
     this.GetUsuarios();
    }
 
-  ngOnInit(): void {
-  }
 
   GetUsuarios(){
     this.Usuaruiservices.GetyAll().subscribe(

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
 
@@ -7,12 +7,12 @@ import { AuthService } from '../../Services/auth.service';
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css']
 })
-export class PrincipalComponent implements OnInit {
+export class PrincipalComponent  {
 public displayusuarios: boolean= false;
 public displayremdes: boolean= false;
 public displaycorrespondencia: boolean= false;
 
-  constructor(private authservices: AuthService, private router: Router, ) {
+  constructor(private readonly authservices: AuthService, private readonly router: Router, ) {
 
     if (this.authservices.getIdRol()=="1") {
       this.displayusuarios = true;
@@ -26,8 +26,7 @@ public displaycorrespondencia: boolean= false;
     }
    }
 
-  ngOnInit(): void {
-  }
+
 
   ingresar(numero){
 

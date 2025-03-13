@@ -16,136 +16,141 @@ export class RemdesComponent implements OnInit {
   @Output('displaychange') displaychange = new EventEmitter();
   public myform: FormGroup;
   public titulo: string;
-  public listTiposRedDes: Tiporemdes[]=[];
+  public listTiposRedDes: Tiporemdes[] = [];
   public id: number;
   public verEditar: boolean = false;
   public displaybotton: boolean = false;
-  public validation ={
+  public validation = {
     documento: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
     nombre: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
     apellidos: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
     direccion: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
     telefono: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
 
 
   }
 
-  constructor(public router: Router,  formbuilder: FormBuilder,private messageService: MessageService, public RemdesServices: RemdemService) {
+  constructor(public router: Router, formbuilder: FormBuilder, private readonly messageService: MessageService, public RemdesServices: RemdemService) {
 
     this.myform = formbuilder.group({
-      documento: new FormControl('',Validators.compose([
+      documento: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      nombre:  new FormControl('',Validators.compose([
+      nombre: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      apellidos:  new FormControl('',Validators.compose([
+      apellidos: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      direccion:  new FormControl('',Validators.compose([
+      direccion: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      telefono:  new FormControl('',Validators.compose([
+      telefono: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      idTipoRemDes:  new FormControl('1',Validators.compose([
+      idTipoRemDes: new FormControl('1', Validators.compose([
         Validators.required,
       ])),
     });
     this.GetTipoRemDes();
 
-    if ( this.remdesditar!==undefined) {
+    if (this.remdesditar !== undefined) {
       this.displaybotton = true;
-         this.showDatos();
+      this.showDatos();
 
-       }else{
-         this.id = null
+    } else {
+      this.id = null
 
-           this.displaybotton = false;
+      this.displaybotton = false;
 
-       }
+    }
 
-   }
+  }
 
   ngOnInit(): void {
- this.showDatos();
+    this.showDatos();
 
   }
 
 
-showDatos(){
-  if( this.remdesditar!==undefined){
-    this.myform.get('documento').setValue( this.remdesditar.documento);
-    this.myform.get('nombre').setValue( this.remdesditar.nombres);
-    this.myform.get('apellidos').setValue( this.remdesditar.apellidos);
-    this.myform.get('direccion').setValue( this.remdesditar.direccion);
-    this.myform.get('telefono').setValue( this.remdesditar.telefono);
-     this.myform.get('idTipoRemDes').setValue( this.remdesditar.idTipoRemDes);
-    this.titulo = "Editar Rem / Des";
-    this.verEditar = true;
-  }else{
-    this.displaybotton = true;
-    this.titulo = "Rem  / Des";
-    this.verEditar = false;
-    this.LimpiarFormulario();
+  showDatos() {
+    if (this.remdesditar !== undefined) {
+      this.myform.get('documento').setValue(this.remdesditar.documento);
+      this.myform.get('nombre').setValue(this.remdesditar.nombres);
+      this.myform.get('apellidos').setValue(this.remdesditar.apellidos);
+      this.myform.get('direccion').setValue(this.remdesditar.direccion);
+      this.myform.get('telefono').setValue(this.remdesditar.telefono);
+      this.myform.get('idTipoRemDes').setValue(this.remdesditar.idTipoRemDes);
+      this.titulo = "Editar Rem / Des";
+      this.verEditar = true;
+    } else {
+      this.displaybotton = true;
+      this.titulo = "Rem  / Des";
+      this.verEditar = false;
+      this.LimpiarFormulario();
+    }
   }
-}
 
-  GetTipoRemDes(){
+  GetTipoRemDes() {
     this.RemdesServices.GetTipoRemdem().subscribe(
-      data=>{
+      data => {
         this.listTiposRedDes = data;
       });
   }
 
 
-  Save(){
+  Save() {
     if (this.myform.valid) {
-      if (this.remdesditar!=undefined) {
+      if (this.remdesditar != undefined) {
         this.update();
 
-      }else{
+      } else {
 
         this.add();
       }
-  }else{
-    this.addSingle('error', 'Faltan datos por completar');
-  }
+    } else {
+      this.addSingle('error', 'Faltan datos por completar');
+    }
 
   }
 
 
-  add(){
+  add() {
     this.RemdesServices.remdem.documento = this.myform.value.documento;
     this.RemdesServices.remdem.nombres = this.myform.value.nombre;
     this.RemdesServices.remdem.apellidos = this.myform.value.apellidos;
     this.RemdesServices.remdem.direccion = this.myform.value.direccion;
     this.RemdesServices.remdem.telefono = this.myform.value.telefono;
     this.RemdesServices.remdem.idTipoRemDes = this.myform.value.idTipoRemDes;
-    this.RemdesServices.Add().subscribe(
-      data=>{
-        if (data['code']==1) {
+    this.RemdesServices.Add().subscribe({
+      next: (data) => {
+        if (data['code'] == 1) {
           this.LimpiarFormulario();
-         this.addSingle('success', data['descripcion']);
-        }else{
-         this.addSingle('error', data['descripcion']);
+          this.addSingle('success', data['descripcion']);
+        } else {
+          this.addSingle('error', data['descripcion']);
         }
-       },error=>{
-         this.addSingle('error', error.message);
-       });
+      },
+      error: (error) => {
+        this.addSingle('error', error.message);
+      }
+    });
+
+
+
   }
 
-  update(){
+  update() {
 
     this.RemdesServices.remdem.idremitente = this.remdesditar.idremitente;
     this.RemdesServices.remdem.documento = this.myform.value.documento;
@@ -155,10 +160,10 @@ showDatos(){
     this.RemdesServices.remdem.telefono = this.myform.value.telefono;
     this.RemdesServices.remdem.idTipoRemDes = this.myform.value.idTipoRemDes;
     this.RemdesServices.update().subscribe(
-      data=>{
-        if (data['code']==1) {
+      data => {
+        if (data['code'] == 1) {
           this.displaychange.emit(true);
-        }else{
+        } else {
 
           this.addSingle('error', data['descripcion']);
         }
@@ -167,22 +172,22 @@ showDatos(){
 
 
   }
-  LimpiarFormulario(){
+  LimpiarFormulario() {
     this.myform.reset();
   }
 
 
 
   addSingle(tipo, mensaje) {
-    if (tipo=='success') {
-      this.messageService.add( {severity:'success', summary:'Service Message', detail:'Usuario creado con exito'});
-    }else{
-      this.messageService.add({severity:'error', summary:'Error', detail:mensaje});
+    if (tipo == 'success') {
+      this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Usuario creado con exito' });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: mensaje });
     }
   }
 
 
-  atras(){
+  atras() {
     this.router.navigateByUrl('ListarRemdem');
   }
 

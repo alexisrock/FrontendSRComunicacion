@@ -1,10 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-import { NgForm } from '@angular/forms';
-
-import {CardModule} from 'primeng/card';
 import { LoginService } from '../../Services/login.service';
 import { AuthService } from '../../Services/auth.service';
 import {MessageService} from 'primeng/api';
@@ -14,10 +10,10 @@ import {MessageService} from 'primeng/api';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
   mensajeError: string;
   public myform: FormGroup;
-  constructor( public router: Router,  formbuilder: FormBuilder,private messageService: MessageService,  public loginservices: LoginService, private authservices: AuthService) {
+  constructor( public router: Router,  formbuilder: FormBuilder,private readonly messageService: MessageService,  public loginservices: LoginService, private readonly authservices: AuthService) {
     this.myform = formbuilder.group({
       idusuario: new FormControl('',Validators.compose([
         Validators.required,
@@ -28,8 +24,6 @@ export class LoginComponent implements OnInit {
     });
    }
 
-  ngOnInit(): void {
-  }
 
   login(){
     if (this.myform.valid) {

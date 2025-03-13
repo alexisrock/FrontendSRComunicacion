@@ -9,7 +9,7 @@ import { Tiporemdes } from '../logueo/Interfaces/tiporemdes';
 })
 export class RemdemService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   public headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 

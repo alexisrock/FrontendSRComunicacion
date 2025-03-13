@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RemdemService } from 'src/app/Cliente/Services/remdem.service';
 import { Remdem } from '../../Interfaces/remdem';
@@ -8,18 +8,17 @@ import { Remdem } from '../../Interfaces/remdem';
   templateUrl: './listarremdem.component.html',
   styleUrls: ['./listarremdem.component.css']
 })
-export class ListarremdemComponent implements OnInit {
+export class ListarremdemComponent {
   first = 0;
   rows = 10;
   public ListaRemdem: Remdem[]=[]
   public display: boolean = false;
   public remEdit: Remdem;
-  constructor(private router: Router, private remdesservices: RemdemService) {
+  constructor(private readonly router: Router, private readonly remdesservices: RemdemService) {
     this.GetRemdes();
    }
 
-  ngOnInit(): void {
-  }
+
   GetRemdes(){
     this.remdesservices.GetAll().subscribe(
       data=>{

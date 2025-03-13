@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CorrespondenciaService } from 'src/app/Cliente/Services/correspondencia.service';
 import { RemdemService } from 'src/app/Cliente/Services/remdem.service';
-import { Correspondenica, VwCorrespondenica } from '../../Interfaces/correspondenica';
+import { VwCorrespondenica } from '../../Interfaces/correspondenica';
 import { Remdem } from '../../Interfaces/remdem';
 
 import { FileUploadModel } from '../../Interfaces/Archivo';
@@ -13,7 +13,7 @@ import { catchError, last, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/Cliente/Services/auth.service';
 
- @Component({
+@Component({
   selector: 'app-correspondencia',
   templateUrl: './correspondencia.component.html',
   styleUrls: ['./correspondencia.component.css']
@@ -31,7 +31,7 @@ export class CorrespondenciaComponent implements OnInit {
   listaremi: Remdem[] = []
   listadest: Remdem[] = []
   listrm: Remdem[] = []
-  file:File;
+  file: File;
   files: FileUploadModel;
   public Link: string;
   public texto: any;
@@ -40,40 +40,40 @@ export class CorrespondenciaComponent implements OnInit {
   @Input() target = 'https://file.io';
   @Input() accept = 'pdf';
   public listtipocorr = []
-  public validation ={
+  public validation = {
     idRemitente: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
     idDestinatario: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
 
     observacion: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
     tipoCorrespondencia: [
-      {type: 'required', message: 'El campo es obligatorio'}
+      { type: 'required', message: 'El campo es obligatorio' }
     ],
   }
 
-  constructor(public router: Router,  formbuilder: FormBuilder,private messageService: MessageService,
-     private corresservices: CorrespondenciaService, private remdemservices: RemdemService, private _http: HttpClient, private auth: AuthService) {
+  constructor(public router: Router, formbuilder: FormBuilder, private readonly messageService: MessageService,
+    private readonly corresservices: CorrespondenciaService, private readonly remdemservices: RemdemService, private readonly _http: HttpClient, private readonly auth: AuthService) {
 
 
     this.myform = formbuilder.group({
-      idRemitente: new FormControl('',Validators.compose([
+      idRemitente: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      idDestinatario:  new FormControl('',Validators.compose([
+      idDestinatario: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      rutaArchivo:  new FormControl('',Validators.compose([
+      rutaArchivo: new FormControl('', Validators.compose([
 
       ])),
-      observacion:  new FormControl('',Validators.compose([
+      observacion: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-      tipoCorrespondencia:  new FormControl('1',Validators.compose([
+      tipoCorrespondencia: new FormControl('1', Validators.compose([
         Validators.required,
       ]))
     });
@@ -81,9 +81,9 @@ export class CorrespondenciaComponent implements OnInit {
 
 
     this.listtipocorr = [
-      {name:"seleccione", code: ""},
-      {name:"Interna", code: "1"},
-      {name:"Externa", code: "2"}
+      { name: "seleccione", code: "" },
+      { name: "Interna", code: "1" },
+      { name: "Externa", code: "2" }
     ]
 
 
@@ -96,9 +96,9 @@ export class CorrespondenciaComponent implements OnInit {
   }
 
 
-  showDatos(){
-    if( this.corresditar!==undefined){
-     this.listadest.filter(x=> x.idremitente== this.corresditar.idDestinatario).forEach(d =>{
+  showDatos() {
+    if (this.corresditar !== undefined) {
+      this.listadest.filter(x => x.idremitente == this.corresditar.idDestinatario).forEach(d => {
         this.myform.get('idDestinatario').patchValue(d.nombres);
         this.myform.get('idDestinatario').setValue(d.nombres)
         this.myform.controls['idDestinatario'].setValue(d.nombres)
@@ -111,17 +111,17 @@ export class CorrespondenciaComponent implements OnInit {
 
 
 
-      this.myform.get('idRemitente').setValue( this.corresditar.remitente);
-      this.myform.get('idDestinatario').setValue( this.corresditar.idDestinatario);
-      this.myform.get('observacion').setValue( this.corresditar.observacion);
-      var prefijo = this.corresditar.idCorrespondencia.substring(0,2)=='CI'? "1" : "2";
-      this.myform.get('tipoCorrespondencia').setValue( prefijo);
+      this.myform.get('idRemitente').setValue(this.corresditar.remitente);
+      this.myform.get('idDestinatario').setValue(this.corresditar.idDestinatario);
+      this.myform.get('observacion').setValue(this.corresditar.observacion);
+      let prefijo = this.corresditar.idCorrespondencia.startsWith('CI') ? "1" : "2";
+      this.myform.get('tipoCorrespondencia').setValue(prefijo);
 
 
 
       this.titulo = "Editar Correspondencia";
       this.verEditar = true;
-    }else{
+    } else {
       this.displaybotton = true;
       this.titulo = "Correspondencia";
       this.verEditar = false;
@@ -130,50 +130,50 @@ export class CorrespondenciaComponent implements OnInit {
   }
 
 
-  GetRemDes(){
+  GetRemDes() {
     this.remdemservices.GetAll().subscribe(
-      data=>{
+      data => {
         this.listrm = data
 
-        this.listaremi = this.listrm.filter(x=> x.idTipoRemDes==1)
+        this.listaremi = this.listrm.filter(x => x.idTipoRemDes == 1)
 
-        this.listadest = this.listrm.filter(x=> x.idTipoRemDes==2)
+        this.listadest = this.listrm.filter(x => x.idTipoRemDes == 2)
       });
 
   }
 
 
-  async  Save(){
+  async Save() {
     await this.uploadFile();
     if (this.myform.valid) {
-      if (this.corresditar!=undefined) {
+      if (this.corresditar != undefined) {
         this.update();
 
-      }else{
+      } else {
 
         this.add();
       }
-  }else{
-    this.addSingle('error', 'Faltan datos por completar');
-  }
+    } else {
+      this.addSingle('error', 'Faltan datos por completar');
+    }
 
   }
 
-  update(){
+  update() {
     this.corresservices.idcorrespondencia = this.corresditar.idCorrespondencia;
     this.corresservices.correspondencia.idRemitente = this.myform.value.idRemitente.idremitente;
     this.corresservices.correspondencia.idDestinatario = this.myform.value.idDestinatario.idremitente;
     this.corresservices.correspondencia.rutaArchivo = this.Link;
     this.corresservices.correspondencia.observacion = this.myform.value.observacion;
-    this.corresservices.correspondencia.tipoCorrespondencia = Number.parseInt(this.myform.value.tipoCorrespondencia) ;
+    this.corresservices.correspondencia.tipoCorrespondencia = Number.parseInt(this.myform.value.tipoCorrespondencia);
     let numero = Number.parseInt(this.auth.getIduser())
     console.log(numero);
-    this.corresservices.correspondencia.idusuarioactualizacion =  numero;
+    this.corresservices.correspondencia.idusuarioactualizacion = numero;
     this.corresservices.update().subscribe(
-      data=>{
-        if (data['code']==1) {
+      data => {
+        if (data['code'] == 1) {
           this.displaychange.emit(true);
-        }else{
+        } else {
 
           this.addSingle('error', data['descripcion']);
         }
@@ -183,28 +183,30 @@ export class CorrespondenciaComponent implements OnInit {
 
   }
 
-  add(){
+  add() {
 
     this.corresservices.correspondencia.idRemitente = this.myform.value.idRemitente.idremitente;
     this.corresservices.correspondencia.idDestinatario = this.myform.value.idDestinatario.idremitente;
     this.corresservices.correspondencia.rutaArchivo = this.Link;
     this.corresservices.correspondencia.observacion = this.myform.value.observacion;
-    this.corresservices.correspondencia.tipoCorrespondencia = Number.parseInt(this.myform.value.tipoCorrespondencia) ;
-    console.log("code: "+this.myform.value.tipoCorrespondencia);
+    this.corresservices.correspondencia.tipoCorrespondencia = Number.parseInt(this.myform.value.tipoCorrespondencia);
+    console.log("code: " + this.myform.value.tipoCorrespondencia);
     let numero = Number.parseInt(this.auth.getIduser())
-    console.log(" user id "+this.auth.getIduser());
+    console.log(" user id " + this.auth.getIduser());
     this.corresservices.correspondencia.idusuariocreacion = numero
-    this.corresservices.Add().subscribe(
-      data=>{
-        if (data['code']==1) {
+    this.corresservices.Add().subscribe({
+      next: (data) => {
+        if (data['code'] == 1) {
           this.LimpiarFormulario();
-         this.addSingle('success', data['descripcion']);
-        }else{
-         this.addSingle('error', data['descripcion']);
+          this.addSingle('success', data['descripcion']);
+        } else {
+          this.addSingle('error', data['descripcion']);
         }
-       },error=>{
-         this.addSingle('error', error.message);
-       }
+      },
+      error: (error) => {
+        this.addSingle('error', error.message);
+      }
+    }
     );
 
   }
@@ -214,12 +216,12 @@ export class CorrespondenciaComponent implements OnInit {
     const fileUpload = document.getElementById('rutaArchivo') as HTMLInputElement;
 
 
-if(fileUpload.value!=''){
+    if (fileUpload.value != '') {
 
       // tslint:disable-next-line:prefer-for-of
       for (let index = 0; index < fileUpload.files.length; index++) {
         const file = fileUpload.files[index];
-        this.files={
+        this.files = {
           data: file,
           state: 'in',
           inProgress: false,
@@ -229,17 +231,17 @@ if(fileUpload.value!=''){
         };
 
 
-   await   this.loadFile( this.files);
+        this.loadFile(this.files);
       }
 
-    }else{
+    } else {
 
       this.Link = "";
     }
 
-    }
+  }
 
-   loadFile(file: FileUploadModel) {
+  loadFile(file: FileUploadModel) {
     const fd = new FormData();
     fd.append(this.param, file.data);
 
@@ -251,11 +253,11 @@ if(fileUpload.value!=''){
     file.sub = this._http.request(req).pipe(
       map(event => {
         switch (event.type) {
-              case HttpEventType.UploadProgress:
-                    file.progress = Math.round(event.loaded * 100 / event.total);
-                    break;
-              case HttpEventType.Response:
-                    return event;
+          case HttpEventType.UploadProgress:
+            file.progress = Math.round(event.loaded * 100 / event.total);
+            break;
+          case HttpEventType.Response:
+            return event;
         }
       }),
       tap(message => { }),
@@ -269,50 +271,45 @@ if(fileUpload.value!=''){
       (event: any) => {
         if (typeof (event) === 'object') {
 
-         this.Link = event.body.link;
-         console.log(this.Link)
+          this.Link = event.body.link;
+          console.log(this.Link)
 
         }
       }
     );
   }
-  atras(){
+  atras() {
     this.router.navigateByUrl('ListarCorrespondencia');
   }
 
 
-  onFileChange(event){
-    if(event.target.files && event.target.files.length>0){//Identifica si hay archivos
-        const file=event.target.files[0];
-        if(file.type.includes("pdf")){//Evaluar si es una imagen
-            const reader= new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload=function load(){
-                this.image=reader.result; //Asignar al thumbnail
-            }.bind(this);
-            this.file=file;
-
-
-
-        }else{
-
-        }
+  onFileChange(event) {
+    if (event.target.files && event.target.files.length > 0) {//Identifica si hay archivos
+      const file = event.target.files[0];
+      if (file.type.includes("pdf")) {//Evaluar si es una imagen
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function load() {
+          this.image = reader.result; //Asignar al thumbnail
+        }.bind(this);
+        this.file = file;
+      }
     }
-}
+  }
 
 
 
-  LimpiarFormulario(){
+  LimpiarFormulario() {
     this.myform.reset();
   }
 
 
 
   addSingle(tipo, mensaje) {
-    if (tipo=='success') {
-      this.messageService.add( {severity:'success', summary:'Service Message', detail:'Usuario creado con exito'});
-    }else{
-      this.messageService.add({severity:'error', summary:'Error', detail:mensaje});
+    if (tipo == 'success') {
+      this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Usuario creado con exito' });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: mensaje });
     }
   }
 
@@ -320,32 +317,32 @@ if(fileUpload.value!=''){
 
   filterRem(event) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    let filtered : any[] = [];
+    let filtered: any[] = [];
     let query = event.query;
 
-    for(let i = 0; i < this.listaremi.length; i++) {
-        let country = this.listaremi[i];
-        if (country.nombres.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(country);
-        }
+    for (let remi of this.listaremi) {
+      let country = remi;
+      if (country.nombres.toLowerCase().startsWith(query.toLowerCase())) {
+        filtered.push(country);
+      }
     }
 
     this.listaremi = filtered;
-}
-
-
-filterdesm(event) {
-  //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-  let filtered : any[] = [];
-  let query = event.query;
-  for(let i = 0; i < this.listadest.length; i++) {
-      let country = this.listadest[i];
-      if (country.nombres.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          filtered.push(country);
-      }
   }
 
-  this.listadest = filtered;
-}
+
+  filterdesm(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    let filtered: any[] = [];
+    let query = event.query;
+    for (let dest of this.listadest) {
+      let country = dest;
+      if (country.nombres.toLowerCase().startsWith(query.toLowerCase())) {
+        filtered.push(country);
+      }
+    }
+
+    this.listadest = filtered;
+  }
 
 }

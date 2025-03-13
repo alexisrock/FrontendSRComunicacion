@@ -5,7 +5,7 @@ import { CookieService } from "ngx-cookie-service";
 })
 export class AuthService {
 
-  constructor(private cookies: CookieService) { }
+  constructor(private readonly cookies: CookieService) { }
 
 
   setIduser(iduser){

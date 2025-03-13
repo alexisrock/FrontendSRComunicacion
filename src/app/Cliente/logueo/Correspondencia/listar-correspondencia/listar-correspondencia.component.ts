@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Cliente/Services/auth.service';
 import { CorrespondenciaService } from 'src/app/Cliente/Services/correspondencia.service';
 import { environment } from 'src/environments/environment';
-import { Correspondenica, VwCorrespondenica } from '../../Interfaces/correspondenica';
+import {  VwCorrespondenica } from '../../Interfaces/correspondenica';
 
 @Component({
   selector: 'app-listar-correspondencia',
   templateUrl: './listar-correspondencia.component.html',
   styleUrls: ['./listar-correspondencia.component.css']
 })
-export class ListarCorrespondenciaComponent implements OnInit {
+export class ListarCorrespondenciaComponent  {
   first = 0;
   rows = 10;
   public Lista: VwCorrespondenica[]=[]
@@ -19,14 +19,13 @@ export class ListarCorrespondenciaComponent implements OnInit {
   public url: string = "";
   displaybotton: boolean = true;
   public corresEdit: VwCorrespondenica;
-  constructor(private router: Router, private corresponservices: CorrespondenciaService, private auth: AuthService) {
+  constructor(private readonly router: Router, private readonly corresponservices: CorrespondenciaService, private readonly auth: AuthService) {
 
     this.GetCorrespondnecia();
     this.showBtnNuevo();
   }
 
-  ngOnInit(): void {
-  }
+
 
   public rutaurl = environment.urlarchivos;
 
@@ -36,7 +35,7 @@ export class ListarCorrespondenciaComponent implements OnInit {
 
         if(this.auth.getIdRol()=="3") {
           this.Lista = data
-          var documento = this.auth.getCedula();
+          const documento = this.auth.getCedula();
           console.log("documento"+documento)
           this.Lista = this.Lista.filter(x => x.documento==documento);
 
